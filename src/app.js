@@ -19,7 +19,8 @@ const ultimaFecha = () => ventas.reduce((m, v) => (v.fecha > m ? v.fecha : m), v
 
 /** Cuenta desde cero hasta el valor, para que el número «suba» al aparecer. */
 function contar(elemento, hasta, dar) {
-  if (sinAnimacion) return (elemento.textContent = dar(hasta))
+  // En una pestaña en segundo plano el navegador pausa la animación: se muestra el valor final.
+  if (sinAnimacion || document.hidden) return (elemento.textContent = dar(hasta))
   const inicio = performance.now()
   const paso = (t) => {
     const f = Math.min(1, (t - inicio) / 700)
