@@ -4,7 +4,8 @@ import { arcoDona, deFecha, escala, formato, rutaLinea, topeRedondo } from './lo
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c])
 const MESES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic']
 const corta = (f) => `${deFecha(f).getDate()} ${MESES[deFecha(f).getMonth()]}`
-export const COLORES = ['#38bdf8', '#818cf8', '#f472b6', '#34d399', '#fbbf24', '#fb7185']
+// Paleta contenida para las categorías: azul, verde azulado, ámbar y grises.
+export const COLORES = ['#3b82f6', '#14b8a6', '#f59e0b', '#94a3b8', '#8b5cf6', '#64748b']
 
 /** Línea de ingresos por día con su media móvil. Devuelve el SVG y los puntos (para el indicador al pasar el cursor). */
 export function graficoLinea(serie, suavizada, ancho = 760, alto = 280) {
@@ -22,11 +23,11 @@ export function graficoLinea(serie, suavizada, ancho = 760, alto = 280) {
   const cada = Math.max(1, Math.ceil(serie.length / 7))
   const fechas = serie.map((p, i) => (i % cada === 0 || i === serie.length - 1 ? `<text x="${x(i)}" y="${alto - 8}" class="eje" text-anchor="middle">${corta(p.fecha)}</text>` : '')).join('')
   const svg = `<svg viewBox="0 0 ${ancho} ${alto}" role="img" aria-label="Ingresos por día">
-    <defs><linearGradient id="relleno" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--acento)" stop-opacity=".45"/><stop offset="1" stop-color="var(--acento)" stop-opacity="0"/></linearGradient>
+    <defs><linearGradient id="relleno" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--acento)" stop-opacity=".2"/><stop offset="1" stop-color="var(--acento)" stop-opacity="0"/></linearGradient>
     <linearGradient id="trazo" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="var(--acento)"/><stop offset="1" stop-color="var(--acento-2)"/></linearGradient></defs>
     ${guias}${fechas}
     <path d="${area}" fill="url(#relleno)" class="area"/>
-    <path d="${linea}" fill="none" stroke="url(#trazo)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" pathLength="1" class="trazo"/>
+    <path d="${linea}" fill="none" stroke="var(--acento)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" pathLength="1" class="trazo"/>
     <path d="${media}" fill="none" stroke="var(--suave)" stroke-width="1.5" stroke-dasharray="5 5" class="media"/>
     <line id="cursor-linea" y1="${m.arriba}" y2="${alto - m.abajo}" class="cursor" visibility="hidden"/>
     <circle id="cursor-punto" r="5" class="punto" visibility="hidden"/>

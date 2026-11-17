@@ -6,19 +6,19 @@
   --texto: #e8ecf6;
   --suave: #93a0b8;
   --borde: #26314b;
-  --acento: #38bdf8;
-  --acento-2: #6366f1;
+  --acento: #60a5fa;
+  --acento-2: var(--acento); /* un solo color de acento: sin degradados */
   --sobre-acento: #04101c;
   --peligro: #f87171;
   --aviso: #fbbf24;
   --radio: 14px;
-  --sombra: 0 10px 30px rgba(0, 0, 0, .35);
+  --sombra: 0 4px 14px rgba(0, 0, 0, .25);
   color-scheme: dark;
 }
 @media (prefers-color-scheme: light) {
   :root:not([data-tema='oscuro']) {
     --fondo: #f3f5fb; --panel: #ffffff; --panel-2: #eef1f8; --texto: #18202f; --suave: #5b6578; --borde: #dde2ee;
-    --sombra: 0 10px 30px rgba(30, 40, 80, .10); --sobre-acento: #ffffff; color-scheme: light;
+    --sombra: 0 4px 14px rgba(30, 40, 80, .07); --sobre-acento: #ffffff; --acento: #2563eb; color-scheme: light;
   }
 }
 * { box-sizing: border-box; }
@@ -30,7 +30,8 @@ button { cursor: pointer; border: 1px solid var(--borde); background: var(--pane
 button:hover:not(:disabled) { border-color: var(--acento); transform: translateY(-1px); }
 button:active:not(:disabled) { transform: translateY(1px) scale(.98); }
 button:disabled { opacity: .45; cursor: not-allowed; }
-button.principal { background: linear-gradient(135deg, var(--acento), var(--acento-2)); color: var(--sobre-acento); border-color: transparent; font-weight: 700; box-shadow: 0 6px 18px color-mix(in srgb, var(--acento) 35%, transparent); }
+button.principal { background: var(--acento); color: var(--sobre-acento); border-color: transparent; font-weight: 700; }
+button.principal:hover:not(:disabled) { filter: brightness(1.07); }
 button.fantasma { background: transparent; }
 button.chico { padding: 4px 10px; font-size: .85rem; }
 input, select, textarea { background: var(--fondo); border: 1px solid var(--borde); border-radius: 10px; padding: 8px 10px; min-width: 0; transition: border-color .2s, box-shadow .2s; }
@@ -39,7 +40,7 @@ label { display: flex; flex-direction: column; gap: 4px; font-size: .82rem; colo
 
 .barra-superior { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: 14px; padding: 12px 20px; background: color-mix(in srgb, var(--fondo) 82%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--borde); }
 .marca { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.1rem; letter-spacing: .2px; }
-.marca i { width: 26px; height: 26px; border-radius: 8px; background: linear-gradient(135deg, var(--acento), var(--acento-2)); display: inline-block; box-shadow: 0 0 18px color-mix(in srgb, var(--acento) 55%, transparent); }
+.marca i { width: 24px; height: 24px; border-radius: 7px; background: var(--acento); display: inline-block; }
 .espacio { flex: 1; }
 .pestanas { display: flex; gap: 4px; background: var(--panel); border: 1px solid var(--borde); border-radius: 12px; padding: 4px; }
 .pestanas button { border: 0; background: transparent; color: var(--suave); padding: 6px 14px; }
@@ -59,7 +60,7 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
 
 .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
 .kpi { background: var(--panel); border: 1px solid var(--borde); border-radius: var(--radio); padding: 14px 16px; position: relative; overflow: hidden; }
-.kpi::before { content: ''; position: absolute; inset: 0 auto 0 0; width: 4px; background: linear-gradient(var(--acento), var(--acento-2)); }
+.kpi::before { content: ''; position: absolute; inset: 0 auto 0 0; width: 3px; background: var(--acento); }
 .kpi b { display: block; font-size: 1.6rem; font-variant-numeric: tabular-nums; }
 .kpi span { color: var(--suave); font-size: .82rem; }
 
@@ -70,8 +71,8 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
 .aviso-flotante.error { border-left-color: var(--peligro); }
 
 @keyframes aparecer { from { opacity: 0; } to { opacity: 1; } }
-@keyframes subir { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
-@keyframes pulso { 0% { transform: scale(1); } 40% { transform: scale(1.06); } 100% { transform: scale(1); } }
+@keyframes subir { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes pulso { 0% { transform: scale(1); } 40% { transform: scale(1.03); } 100% { transform: scale(1); } }
 .entra { animation: subir .35s cubic-bezier(.2, .8, .2, 1) both; }
 .pulso { animation: pulso .3s ease; }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
