@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tablero de ventas</title>
+<meta name="description" content="Tablero de ventas con indicadores y gráficos a partir de un archivo CSV. Hecho sin librerías.">
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<header class="barra-superior">
+  <div class="marca"><i></i> Tablero de ventas</div>
+  <span class="suave" id="origen">Datos de ejemplo</span>
+  <span class="espacio"></span>
+  <div class="pestanas" role="group" aria-label="Periodo">
+    <button data-dias="7" aria-selected="false">7 días</button>
+    <button data-dias="30" aria-selected="true">30 días</button>
+    <button data-dias="90" aria-selected="false">90 días</button>
+  </div>
+  <select id="categoria" aria-label="Categoría"></select>
+</header>
+
+<main>
+  <section class="kpis" id="kpis" aria-label="Indicadores"></section>
+
+  <section class="panel">
+    <div class="fila" style="justify-content: space-between">
+      <div class="titulo-panel" style="margin: 0">Ingresos por día</div>
+      <span class="suave leyenda-linea"><i class="solida"></i> diario <i class="punteada"></i> media de 7 días</span>
+    </div>
+    <div class="lienzo" id="linea"></div>
+    <div class="globo" id="globo" hidden></div>
+  </section>
+
+  <section class="dos">
+    <div class="panel">
+      <div class="titulo-panel">Productos con más ingresos</div>
+      <div id="barras"></div>
+    </div>
+    <div class="panel">
+      <div class="titulo-panel">Por categoría</div>
+      <div class="dona" id="dona"></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="titulo-panel">Tus propios datos</div>
+    <p class="suave" style="margin-top: 0">Sube un archivo CSV con las columnas <code>fecha, producto, categoria, cantidad, precio</code> (fecha como AAAA-MM-DD). El archivo se lee en tu navegador: no se envía a ningún servidor.</p>
+    <div class="fila">
+      <label class="boton-archivo">Cargar CSV<input type="file" id="archivo" accept=".csv,text/csv" hidden></label>
+      <button id="descargar-ejemplo" class="fantasma">Descargar CSV de ejemplo</button>
+      <button id="restaurar" class="fantasma" hidden>Volver a los datos de ejemplo</button>
+    </div>
+    <ul id="errores" class="errores"></ul>
+  </section>
+</main>
+
+<script type="module" src="src/app.js"></script>
+</body>
+</html>
